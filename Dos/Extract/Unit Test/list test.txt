@@ -1,0 +1,3 @@
+extract test.txt
+extract not exist.txt
+New Folder\extract test.txt
