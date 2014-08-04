@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' Or '$(Configuration)|$(Platform)' == 'SCMRelease|AnyCPU' ">
+    <!-- ... -->
+  </PropertyGroup>
+  <PropertyGroup>
+    <Win32Resource>$(ProjectDir)VERSIONINFO.res</Win32Resource>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'SCMRelease|AnyCPU' ">
+    <BuildDependsOn>
+      BeforeClean;
+      $(BuildDependsOn)
+    </BuildDependsOn>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <!-- <Target Name="BeforeRebuild">
+    <Exec Command="call $(ProjectDir)BeforeRebuild.cmd $(ProjectDir)" />
+  </Target> -->
+  <Target Name="BeforeClean">
+    <Exec Command="call $(ProjectDir)BeforeClean.cmd $(ProjectDir)" />
+  </Target>
+  <Target Name="BeforeBuild">
+    <Exec Command="call $(ProjectDir)BeforeBuild.cmd $(ProjectDir) $(ConfigurationName)" />
+  </Target>
+  <Target Name="AfterBuild">
+    <Exec Command="type $(ProjectDir)VERSION" />
+  </Target>
+</Project>

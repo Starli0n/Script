@@ -1,0 +1,112 @@
+#include <winresrc.h>
+#include "resource.h"
+#include "version.h"
+
+
+#define VER_COMPANYNAME_STR         ""
+#define VER_LEGALCOPYRIGHT_STR      ""
+#define VER_LEGALTRADEMARKS_STR     ""
+
+#define STRINGIZE2(s)				#s
+#define STRINGIZE(s)				STRINGIZE2(s)
+
+#define VER_FILEVERSION             MAJOR_VER, MINOR_VER, BUILD_VER, PRIVA_VER
+#define VER_FILEVERSION_STR         STRINGIZE(MAJOR_VER)		\
+                                    "." STRINGIZE(MINOR_VER)    \
+                                    "." STRINGIZE(BUILD_VER)    \
+                                    "." STRINGIZE(PRIVA_VER)
+
+#define VER_PRODUCTVERSION          MAJOR_VER, MINOR_VER, BUILD_VER, PRIVA_VER
+#define VER_PRODUCTVERSION_STR      STRINGIZE(MAJOR_VER)		\
+                                    "." STRINGIZE(MINOR_VER)	\
+                                    "." STRINGIZE(BUILD_VER)    \
+                                    "." STRINGIZE(PRIVA_VER)
+
+#ifndef DEBUG
+    #define VER_DEBUG               0
+    #define VER_COMMENTS_STR		"Release"
+#else
+    #define VER_DEBUG               VS_FF_DEBUG
+    #define VER_COMMENTS_STR		"Debug"
+#endif
+
+#ifndef PATCHED
+    #define VER_PATCHED             0
+#else
+    #define VER_PATCHED             VS_FF_PATCHED
+#endif
+
+#ifndef PRERELEASE
+    #define VER_PRERELEASE	        0
+#else
+    #define VER_PRERELEASE          VS_FF_PRERELEASE
+#endif
+
+#ifndef PRIVATEBUILD
+    #define VER_PRIVATEBUILD        0
+    #define VER_PRIVATEBUILD_STR    ""
+#else
+    #define VER_PRIVATEBUILD        VS_FF_PRIVATEBUILD
+	#ifndef VER_PRIVATEBUILD_STR
+		#define VER_PRIVATEBUILD_STR	"Private"
+	#endif
+#endif
+
+#ifndef SPECIALBUILD
+    #define VER_SPECIALBUILD        0
+    #define VER_SPECIALBUILD_STR    ""
+#else
+    #define VER_SPECIALBUILD        VS_FF_SPECIALBUILD
+	#ifndef VER_SPECIALBUILD_STR
+	    #define VER_SPECIALBUILD_STR	"Special"
+	#endif
+#endif
+
+#define VER_FILEDESCRIPTION_STR		VER_COMMENTS_STR " " VER_PRIVATEBUILD_STR
+
+
+
+VS_VERSION_INFO VERSIONINFO
+	PRODUCTVERSION 	VER_PRODUCTVERSION
+	FILEFLAGSMASK  	VS_FFI_FILEFLAGSMASK
+	FILEFLAGS      	(VER_DEBUG|VER_PATCHED|VER_PRERELEASE|VER_PRIVATEBUILD|VER_SPECIALBUILD)
+	FILEOS         	VOS__WINDOWS32
+	FILETYPE       	VFT_APP
+	FILESUBTYPE    	VFT2_UNKNOWN
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904E4"
+        BEGIN
+            VALUE "Comments",           VER_COMMENTS_STR "\0"
+            VALUE "CompanyName",        VER_COMPANYNAME_STR "\0"
+            VALUE "FileDescription",    VER_FILEDESCRIPTION_STR "\0"
+            VALUE "FileVersion",        VER_FILEVERSION_STR "\0"
+            VALUE "InternalName",       VER_INTERNALNAME_STR "\0"
+            VALUE "LegalCopyright",     VER_LEGALCOPYRIGHT_STR "\0"
+            VALUE "LegalTrademarks",    VER_LEGALTRADEMARKS_STR "\0"
+            VALUE "OriginalFilename",   VER_ORIGINALFILENAME_STR "\0"
+            VALUE "PrivateBuild",       VER_PRIVATEBUILD_STR "\0"
+            VALUE "ProductName",        VER_PRODUCTNAME_STR "\0"
+            VALUE "ProductVersion",     VER_PRODUCTVERSION_STR "\0"
+            VALUE "SpecialBuild",       VER_SPECIALBUILD_STR "\0"
+        END
+    END
+
+    BLOCK "VarFileInfo"
+    BEGIN
+        /* The following line should only be modified for localized versions.     */
+        /* It consists of any number of WORD,WORD pairs, with each pair           */
+        /* describing a language,codepage combination supported by the file.      */
+        /*                                                                        */
+        /* For example, a file might have values "0x409,1252" indicating that it  */
+        /* supports English language (0x409) in the Windows ANSI codepage (1252). */
+
+        VALUE "Translation", 0x409, 1252
+
+    END
+END
+
+#ifdef IDI_ICON_APP
+	IDI_ICON_APP			ICON			IDI_ICON_APP_STR
+#endif
